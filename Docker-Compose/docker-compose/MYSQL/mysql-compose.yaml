@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: example
+      MYSQL_USER
+      MYSQL_TCP_PORT: 3306
+    volumes:
+      - vol-on-host-sql:/etc/mysql/conf.d
+
+volumes:
+  vol-on-host-sql:
+
+
+
+to call one service from other, docker Compose gives us the DNS name based on the service name
+
+<protocol>://<service>:<port>
+
+to call mongodb from java backend, use DNS.
+mongodb://mongodb:27017

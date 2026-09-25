@@ -1,0 +1,40 @@
+1) docker-compose up -d
+
+2) docker-compose ps
+
+3) docker logs -f <joComposeFilekAndarNameDiyaHaiServiceKaNaKiContainerKa>
+
+4) docker exec -it <CnAME> bash
+
+5) check whether the vol is created on local ec2,
+docker volume ls    
+#Docker Compose automatically prefixes volume names with your directory name to avoid conflicts, so it will likely look like YOURFOLDERNAME_<volname>
+
+docker volume inspect YOURFOLDERNAME_<volname>
+#To see where exactly it has created vol on my local ec2
+
+6) docker-compose down
+#It will remove all the containers and network created by docker-compose up -d
+
+7) docker-compose down -v
+#It will remove volume from host as well,along with removing all the containers and network created by docker-compose up -d
+
+8) #To enter inside conatiner,
+docker exec -it ec2-user_mongodb_1 mongosh
+#Note entering in mongosh shell
+
+
+Note: if I am using any docker command like docker exec -it <cname> mongosh, it will work
+But if I am using docker-compose command like docker-compose exec -it ec2-user_mongodb_1 mongosh, it wont work. For docker-compose, you have to give name of service which you have defined in compose.yaml and not container name
+So it will be  docker-compose exec -it <nameofService> mongosh
+
+9) To pass a file name to docker compose.So lets say I have multiple docker-compose files. So from which one to make containers?
+docker compose -f my-custom-file.yml up -d
+
+10) Authenticate to mongodb container for listing/creating databses/collection etc.
+
+ docker-compose exec -it <svcName> mongosh -u <username> -p <password>
+
+11) to call one service from other, docker Compose gives us the DNS name based on the service name
+
+<protocol>://<service>:<port>
